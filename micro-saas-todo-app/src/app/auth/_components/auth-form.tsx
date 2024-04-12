@@ -6,12 +6,29 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useForm } from "react-hook-form"
+import { signIn } from "next-auth/react";
+import { toast } from "sonner"
 
 export  function AuthForm() {
   const form = useForm()
   
-  const handleSubmit = form.handleSubmit((data) =>{
-    console.log(data)
+  const handleSubmit = form.handleSubmit( async (data) =>{
+try {
+  console.log(data)
+  await signIn("email",{email: data.email})
+  
+
+  toast({
+    title: "Email Sent",
+    description: "Please check your email for the magic link",
+    status: "success",
+    duration: 3000,
+    isClosable: true,
+  })
+  
+} catch (error) {
+  
+}
   })
   return (
     <Card className="mx-auto max-w-sm">
