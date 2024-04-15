@@ -3,16 +3,17 @@ import EmailProvider from "next-auth/providers/email"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import { prisma } from "../database"
 
+
 export const {
   handlers: { GET, POST },
   auth,
 } = NextAuth({
-  pages:{
-    signIn: "/auth",
-    signOut: "/auth",
-    error: "/auth",
-    verifyRequest: "/auth",
-    newUser: "/app",
+  pages: {
+    signIn: '/auth',
+    signOut: '/auth',
+    error: '/auth',
+    verifyRequest: '/auth',
+    newUser: '/app',
   },
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -21,5 +22,5 @@ export const {
       from: process.env.EMAIL_FROM,
     })
   ],
-  secret: process.env.AUTH_SECRET, // Defina o segredo aqui
+  
 })

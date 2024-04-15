@@ -6,8 +6,12 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useForm } from "react-hook-form"
-import { signIn } from "next-auth/react";
-import { toast } from "sonner"
+import { signIn } from "next-auth/react"
+
+import { toast } from "@/components/ui/use-toast"
+
+
+
 
 export  function AuthForm() {
   const form = useForm()
@@ -15,19 +19,21 @@ export  function AuthForm() {
   const handleSubmit = form.handleSubmit( async (data) =>{
 try {
   console.log(data)
-  await signIn("email",{email: data.email})
+  await signIn("email",{email: data.email, redirect: false})
   
 
   toast({
-    title: "Email Sent",
-    description: "Please check your email for the magic link",
-    status: "success",
-    duration: 3000,
-    isClosable: true,
+    title: "E-mail enviado!",
+    description: "Por favor verifique seu e-mail!",
+
   })
   
 } catch (error) {
-  
+  toast({
+    title: "Error",
+    description: "Algo deu errado, tente novamente mais tarde!",
+
+  })
 }
   })
   return (
